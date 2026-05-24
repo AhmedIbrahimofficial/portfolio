@@ -98,7 +98,7 @@ export default function ExplorationsSection() {
   return (
     <>
       <section ref={sectionRef} id="explorations" className="relative"
-        style={{ minHeight: "300vh", background: "#0a0a0a" }}>
+        style={{ minHeight: "300vh", background: "#0a0a0a", isolation: "isolate" }}>
 
         {/* Layer 1 — Pinned center text */}
         <div ref={contentRef}

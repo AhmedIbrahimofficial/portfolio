@@ -30,15 +30,15 @@ export default function ContactFooter() {
 
   return (
     <footer id="contact" className="relative overflow-hidden pt-16 md:pt-20 pb-8 md:pb-12"
-      style={{ background: "#0a0a0a" }}>
+      style={{ background: "#0a0a0a", isolation: "isolate" }}>
       <HlsVideo overlayOpacity="bg-black/70" style={{ transform: "scaleY(-1)" }} />
 
       <div className="relative z-10">
         {/* Marquee */}
-        <div className="overflow-hidden mb-16 md:mb-20">
+        <div className="overflow-hidden mb-12 md:mb-16" style={{ maxWidth: "100vw" }}>
           <div ref={marqueeRef} className="flex whitespace-nowrap will-change-transform">
             {Array.from({ length: 20 }).map((_, i) => (
-              <span key={i} className="font-display italic text-4xl md:text-6xl lg:text-7xl flex-shrink-0 pr-8"
+              <span key={i} className="font-display italic text-3xl md:text-5xl lg:text-6xl flex-shrink-0 pr-8"
                 style={{ fontFamily: "'Instrument Serif', serif", color: "#ffffff" }}>
                 {MARQUEE_TEXT}
               </span>
