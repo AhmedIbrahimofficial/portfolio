@@ -1,5 +1,8 @@
+"use client";
+
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import HexBackground from "../components/HexBackground";
 
 const experiences = [
   {
@@ -27,7 +30,9 @@ const experiences = [
 
 export default function ExperiencePage() {
   return (
-    <div style={{ background: "#0a0a0a", minHeight: "100vh" }}>
+    <div style={{ background: "#020818", minHeight: "100vh", position: "relative" }}>
+      <HexBackground />
+      <div style={{ position: "relative", zIndex: 1 }}>
       <Navbar />
 
       {/* Hero */}
@@ -48,7 +53,7 @@ export default function ExperiencePage() {
       </section>
 
       {/* Stats */}
-      <section className="py-10 px-6" style={{ background: "#0d0d0d" }}>
+      <section className="py-10 px-6" style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)" }}>
         <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
           {[{ value: "6+", label: "Years Experience" }, { value: "3", label: "Roles Held" }, { value: "2", label: "Companies" }, { value: "100%", label: "Remote Capable" }].map((stat) => (
             <div key={stat.label} className="flex flex-col items-center gap-1">
@@ -125,6 +130,7 @@ export default function ExperiencePage() {
       </section>
 
       <Footer />
+      </div>
     </div>
   );
 }
