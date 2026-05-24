@@ -1,5 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { useGitHub } from "../lib/useGitHub";
 
 const skillCategories = [
   { category: "Frontend Development", icon: "🖥️", skills: [{ name: "HTML5", level: 95 }, { name: "CSS3 / Tailwind", level: 90 }, { name: "JavaScript", level: 92 }, { name: "React.js", level: 88 }, { name: "Next.js", level: 85 }, { name: "TypeScript", level: 80 }] },
@@ -12,7 +16,34 @@ const skillCategories = [
 
 const techStack = ["HTML", "CSS", "JavaScript", "TypeScript", "React.js", "Next.js", "PHP", "Node.js", "Tailwind CSS", "MySQL", "MongoDB", "Git", "Figma", "Adobe XD", "Photoshop", "REST API", "GraphQL", "Docker", "Linux", "Python"];
 
+// Language color map
+const LANG_COLORS: Record<string, string> = {
+  JavaScript: "#f7df1e", TypeScript: "#3178c6", Python: "#3572A5",
+  PHP: "#4F5D95", HTML: "#e34c26", CSS: "#563d7c", "C++": "#f34b7d",
+  Java: "#b07219", Dart: "#00B4AB", Swift: "#ffac45", Kotlin: "#A97BFF",
+  Go: "#00ADD8", Rust: "#dea584", Ruby: "#701516", Shell: "#89e051",
+  Vue: "#41b883", Svelte: "#ff3e00", "C#": "#178600",
+};
+
+function AnimatedBar({ percent, color }: { percent: number; color: string }) {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    const t = setTimeout(() => setWidth(percent), 100);
+    return () => clearTimeout(t);
+  }, [percent]);
+  return (
+    <div className="h-2 rounded-full overflow-hidden" style={{ background: "#2a2a2a" }}>
+      <div
+        className="h-full rounded-full transition-all duration-1000 ease-out"
+        style={{ width: `${width}%`, background: color, boxShadow: `0 0 8px ${color}66` }}
+      />
+    </div>
+  );
+}
+
 export default function SkillsPage() {
+  const { data: gh, loading: ghLoading } = useGitHub();
+
   return (
     <div style={{ background: "#0a0a0a", minHeight: "100vh" }}>
       <Navbar />
@@ -31,6 +62,57 @@ export default function SkillsPage() {
           <p className="text-base md:text-lg max-w-2xl leading-relaxed font-medium" style={{ color: "#cccccc" }}>
             A comprehensive overview of the technologies, tools, and disciplines I&apos;ve mastered over 6+ years of professional development.
           </p>
+        </div>
+      </section>
+
+      {/* GitHub Language Stats — Live */}
+      <section className="py-12 px-6" style={{ background: "#080808" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-px" style={{ background: "#333" }} />
+            <span className="text-xs uppercase tracking-[0.3em] font-bold" style={{ color: "#aaaaaa" }}>
+              Live from GitHub
+            </span>
+            <span className="text-[10px] rounded-full px-2 py-0.5 font-bold"
+              style={{ background: "rgba(74,222,128,0.1)", color: "#4ade80", border: "1px solid rgba(74,222,128,0.2)" }}>
+              ● LIVE
+            </span>
+          </div>
+          <h2 className="text-xl font-bold mb-6" style={{ color: "#ffffff" }}>
+            Languages by{" "}
+            <em className="font-display italic font-normal" style={{ fontFamily: "'Instrument Serif', serif" }}>
+              repository usage
+            </em>
+          </h2>
+
+          {ghLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="h-12 rounded-xl animate-pulse" style={{ background: "#141414" }} />
+              ))}
+            </div>
+          ) : gh?.languages.length ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {gh.languages.map((lang) => (
+                <div key={lang.name}>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                        style={{ background: LANG_COLORS[lang.name] || "#89AACC" }} />
+                      <span className="text-xs font-semibold" style={{ color: "#dddddd" }}>{lang.name}</span>
+                    </div>
+                    <span className="text-xs font-bold" style={{ color: "#aaaaaa" }}>{lang.percent}%</span>
+                  </div>
+                  <AnimatedBar
+                    percent={lang.percent}
+                    color={LANG_COLORS[lang.name] || "#89AACC"}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm" style={{ color: "#555" }}>Could not load GitHub language data.</p>
+          )}
         </div>
       </section>
 

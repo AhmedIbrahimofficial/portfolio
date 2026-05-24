@@ -1,6 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { useGitHub } from "../lib/useGitHub";
 
 export default function Footer() {
+  const { data: gh } = useGitHub();
+  const yearsExp = gh?.yearsExperience ?? (new Date().getFullYear() - 2020);
+  const repoCount = gh?.user.publicRepos ?? null;
+
   return (
     <footer className="border-t py-10 px-6" style={{ background: "#0a0a0a", borderColor: "#2a2a2a" }}>
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 flex-wrap">
@@ -13,7 +20,13 @@ export default function Footer() {
                 style={{ color: "#ffffff", fontFamily: "'Instrument Serif', serif" }}>AI</span>
             </div>
           </div>
-          <span className="text-sm font-bold" style={{ color: "#ffffff" }}>Ahmed Ibrahim</span>
+          <div>
+            <span className="text-sm font-bold block" style={{ color: "#ffffff" }}>Ahmed Ibrahim</span>
+            <span className="text-[10px] font-medium" style={{ color: "#555" }}>
+              {yearsExp}+ yrs exp
+              {repoCount !== null && ` · ${repoCount} repos`}
+            </span>
+          </div>
         </div>
 
         {/* Nav links */}
@@ -24,6 +37,7 @@ export default function Footer() {
             { label: "Skills",     href: "/skills" },
             { label: "Experience", href: "/experience" },
             { label: "Education",  href: "/education" },
+            { label: "Stats",      href: "/stats" },
           ].map((link) => (
             <Link key={link.label} href={link.href}
               className="text-xs font-bold transition-colors duration-200 hover:text-white"
@@ -61,7 +75,7 @@ export default function Footer() {
 
       <div className="max-w-5xl mx-auto mt-8 pt-6 border-t text-center" style={{ borderColor: "#2a2a2a" }}>
         <p className="text-xs font-medium" style={{ color: "#555555" }}>
-          © 2025 Ahmed Ibrahim · ZehanxTech · Built with Next.js
+          © {new Date().getFullYear()} Ahmed Ibrahim · ZehanxTech · Built with Next.js
         </p>
       </div>
     </footer>

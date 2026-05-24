@@ -3,6 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { PROJECTS } from "../lib/projects";
 
 const SPANS: Record<number, string> = { 1: "md:col-span-7", 2: "md:col-span-5", 3: "md:col-span-5", 4: "md:col-span-7" };
@@ -12,7 +13,48 @@ const inView: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: "easeOut" } },
 };
 
+interface RepoMeta { stars: number; updatedAt: string }
+
+function useRepoMeta(repos: (string | undefined)[]) {
+  const [meta, setMeta] = useState<Record<string, RepoMeta>>({});
+
+  useEffect(() => {
+    const validRepos = repos.filter(Boolean) as string[];
+    if (!validRepos.length) return;
+
+    const fetchAll = async () => {
+      const results = await Promise.allSettled(
+        validRepos.map((r) =>
+          fetch(`/api/github`).then((res) => res.json()).then((data) => {
+            // Find matching repo from topRepos
+            const found = data.topRepos?.find(
+              (tr: { fullName: string; stars: number; updatedAt: string }) =>
+                tr.fullName.toLowerCase() === r.toLowerCase()
+            );
+            return { repo: r, stars: found?.stars ?? 0, updatedAt: found?.updatedAt ?? "" };
+          })
+        )
+      );
+      const map: Record<string, RepoMeta> = {};
+      for (const r of results) {
+        if (r.status === "fulfilled") {
+          map[r.value.repo] = { stars: r.value.stars, updatedAt: r.value.updatedAt };
+        }
+      }
+      setMeta(map);
+    };
+
+    fetchAll();
+    const id = setInterval(fetchAll, 300_000);
+    return () => clearInterval(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return meta;
+}
+
 export default function WorksSection() {
+  const repoMeta = useRepoMeta(PROJECTS.map((p) => p.githubRepo));
   return (
     <section id="work" className="py-12 md:py-20" style={{ background: "#0a0a0a" }}>
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
@@ -105,10 +147,19 @@ export default function WorksSection() {
                       )}
                     </div>
                   </div>
-                  <span className="text-xs rounded-full px-3 py-1 border opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold flex-shrink-0"
-                    style={{ background: "rgba(0,0,0,0.8)", borderColor: "#444", color: "#ffffff" }}>
-                    {project.year}
-                  </span>
+                  <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                    {/* GitHub stars if available */}
+                    {project.githubRepo && repoMeta[project.githubRepo] !== undefined && (
+                      <span className="flex items-center gap-1 text-[10px] font-bold rounded-full px-2 py-0.5"
+                        style={{ background: "rgba(0,0,0,0.7)", color: "#fbbf24", border: "1px solid rgba(251,191,36,0.3)" }}>
+                        ★ {repoMeta[project.githubRepo]?.stars ?? 0}
+                      </span>
+                    )}
+                    <span className="text-xs rounded-full px-3 py-1 border opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold"
+                      style={{ background: "rgba(0,0,0,0.8)", borderColor: "#444", color: "#ffffff" }}>
+                      {project.year}
+                    </span>
+                  </div>
                 </div>
               </Link>
             </motion.div>

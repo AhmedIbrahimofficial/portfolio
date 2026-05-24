@@ -6,15 +6,16 @@ export interface Project {
   tagline: string;
   description: string;
   longDescription: string;
-  imageUrl: string;          // Unsplash image
+  imageUrl: string;
   imageAlt: string;
-  bg: string;                // Tailwind gradient classes
+  bg: string;
   accentColor: string;
   year: string;
   role: string;
   stack: string[];
   features: { icon: string; title: string; desc: string }[];
   outcome: string;
+  githubRepo?: string; // e.g. "AhmedIbrahimofficial/connect-ai"
 }
 
 export const PROJECTS: Project[] = [

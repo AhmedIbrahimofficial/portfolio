@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import BackToTop from "./components/BackToTop";
 import CustomCursor from "./components/CustomCursor";
 import ScrollReset from "./components/ScrollReset";
+import VisitorTracker from "./components/VisitorTracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -89,6 +91,8 @@ export default function RootLayout({
         <ScrollReset />
         <CustomCursor />
         <BackToTop />
+        <VisitorTracker />
+        <Analytics />
         {children}
       </body>
     </html>
