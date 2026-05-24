@@ -1,13 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import AIBackground from "../components/AIBackground";
 import stats from "../lib/stats.json";
 
 export default function AboutPage() {
   const connections = stats.linkedin_connections;
   const followers   = stats.linkedin_followers;
   return (
-    <div style={{ background: "#0a0a0a", minHeight: "100vh" }}>
+    <div style={{ background: "#0a0a0a", minHeight: "100vh", position: "relative" }}>
+      {/* Animated AI neural network background */}
+      <AIBackground />
+
+      {/* All content above background */}
+      <div style={{ position: "relative", zIndex: 1 }}>
       <Navbar />
 
       {/* Hero */}
@@ -202,6 +210,7 @@ export default function AboutPage() {
       </section>
 
       <Footer />
+      </div>{/* end content wrapper */}
     </div>
   );
 }
