@@ -179,21 +179,6 @@ export default function HeroSection() {
             See My Work ↓
           </button>
 
-          {/* Download CV */}
-          <a href="/Ahmed-Ibrahim-CV.pdf"
-            download
-            className="group relative rounded-full text-sm px-8 py-4 font-bold border-2 transition-all duration-300 hover:scale-105"
-            style={{
-              borderColor: "rgba(255,255,255,0.25)",
-              color: "#ffffff",
-              background: "rgba(255,255,255,0.05)",
-              backdropFilter: "blur(8px)",
-            }}>
-            <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style={{ background: "rgba(137,170,204,0.15)", boxShadow: "0 0 20px rgba(137,170,204,0.3)" }} />
-            <span className="relative z-10">Download CV ↓</span>
-          </a>
-
           {/* Let's Talk — WhatsApp */}
           <a href="https://wa.me/923067060074"
             target="_blank"
