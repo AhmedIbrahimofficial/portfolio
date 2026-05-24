@@ -1,15 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { PROJECTS } from "../lib/projects";
 
 const SPANS: Record<number, string> = { 1: "md:col-span-7", 2: "md:col-span-5", 3: "md:col-span-5", 4: "md:col-span-7" };
 
-const inView = {
+const inView: Variants = {
   hidden:  { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.25, 0.1, 0.25, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: "easeOut" } },
 };
 
 export default function WorksSection() {

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 const ENTRIES = [
   { id: 1, title: "Building AI-Powered Web Platforms in 2025", tag: "AI & Dev",  readTime: "5 min read", date: "May 2025", emoji: "🤖" },
@@ -9,9 +9,9 @@ const ENTRIES = [
   { id: 4, title: "Cybersecurity Basics Every Developer Should Know",   tag: "Security", readTime: "7 min read", date: "Feb 2025", emoji: "🔒" },
 ];
 
-const inView = {
+const inView: Variants = {
   hidden:  { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.25, 0.1, 0.25, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: "easeOut" } },
 };
 
 export default function JournalSection() {

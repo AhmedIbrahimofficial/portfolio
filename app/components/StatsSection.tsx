@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 const STATS = [
   { value: "6+",   label: "Years Experience",  sub: "Since 2020" },
@@ -8,11 +8,11 @@ const STATS = [
   { value: "100%", label: "Satisfied Clients",  sub: "Every single one" },
 ];
 
-const inView = {
+const inView: Variants = {
   hidden:  { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1, y: 0,
-    transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: i * 0.15 },
+    transition: { duration: 0.8, ease: "easeOut", delay: i * 0.15 },
   }),
 };
 
