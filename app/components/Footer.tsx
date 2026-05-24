@@ -36,9 +36,11 @@ export default function Footer() {
         {/* Social */}
         <div className="flex items-center gap-4">
           {[
-            { label: "LinkedIn", href: "https://linkedin.com" },
-            { label: "GitHub",   href: "https://github.com/AhmedIbrahimofficial" },
-            { label: "Email",    href: "mailto:funandentertainmentwithus@gmail.com" },
+            { label: "LinkedIn",   href: "https://www.linkedin.com/in/rafaqat-hussain-5615483a9/" },
+            { label: "GitHub",     href: "https://github.com/AhmedIbrahimofficial" },
+            { label: "Twitter",    href: "https://x.com/ZehanxTech" },
+            { label: "ZehanxTech", href: "https://zehanxtech.com" },
+            { label: "Email",      href: "https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com" },
           ].map((link) => (
             <a key={link.label} href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}

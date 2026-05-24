@@ -8,6 +8,7 @@ import HeroSection from "./components/HeroSection";
 import JournalSection from "./components/JournalSection";
 import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/Navbar";
+import ReachOutSection from "./components/ReachOutSection";
 import StatsSection from "./components/StatsSection";
 import WorksSection from "./components/WorksSection";
 
@@ -45,6 +46,7 @@ export default function HomePage() {
         <WorksSection />
         <JournalSection />
         <ExplorationsSection />
+        <ReachOutSection />
         <StatsSection />
         <ContactFooter />
       </div>

@@ -115,16 +115,6 @@ export default function ExplorationsSection() {
           <p className="text-sm max-w-xs mb-8 font-medium" style={{ color: "#cccccc" }}>
             A collection of visual experiments and creative explorations.
           </p>
-          <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer"
-            className="pointer-events-auto group relative inline-flex items-center gap-2 rounded-full text-sm px-6 py-3 border font-bold transition-all duration-200 hover:scale-105"
-            style={{ borderColor: "#444", color: "#ffffff", background: "#141414" }}>
-            <span className="absolute inset-[-2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-              style={{ background: "linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)", zIndex: -1 }} />
-            <span className="relative z-10 flex items-center gap-2 rounded-full px-6 py-3 -mx-6 -my-3"
-              style={{ background: "#141414" }}>
-              View on Dribbble ↗
-            </span>
-          </a>
         </div>
 
         {/* Layer 2 — Parallax columns */}

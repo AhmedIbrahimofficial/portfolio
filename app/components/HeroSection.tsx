@@ -90,18 +90,20 @@ export default function HeroSection() {
         <div ref={(el) => addBlurRef(el as HTMLElement | null, 3)}
           className="inline-flex gap-4 flex-wrap justify-center">
 
-          {/* See Works */}
-          <a href="#work"
+          {/* See Works — dark button with white text, gradient border on hover only */}
+          <button
             className="group relative rounded-full text-sm px-7 py-3.5 font-bold transition-all duration-200 hover:scale-105"
-            style={{ background: "#ffffff", color: "#0a0a0a" }}
-            onClick={(e) => { e.preventDefault(); document.getElementById("work")?.scrollIntoView({ behavior: "smooth" }); }}>
+            style={{ background: "#1a1a1a", color: "#ffffff", border: "2px solid #444" }}
+            onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}>
             <span className="absolute inset-[-2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
               style={{ background: "linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)", zIndex: -1 }} />
             <span className="relative z-10">See Works</span>
-          </a>
+          </button>
 
-          {/* Reach out */}
-          <a href="mailto:funandentertainmentwithus@gmail.com"
+          {/* Reach out — WhatsApp */}
+          <a href="https://wa.me/923067060074"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative rounded-full text-sm px-7 py-3.5 font-bold border-2 transition-all duration-200 hover:scale-105"
             style={{ borderColor: "#555555", color: "#ffffff", background: "transparent" }}>
             <span className="absolute inset-[-2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"

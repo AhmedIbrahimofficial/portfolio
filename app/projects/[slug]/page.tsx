@@ -181,7 +181,9 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
         <p className="text-xs uppercase tracking-[0.3em] mb-4" style={{ color: C_MUTED }}>
           Interested in working together?
         </p>
-        <a href="mailto:funandentertainmentwithus@gmail.com"
+        <a href="https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
           className="group relative inline-flex items-center gap-2 rounded-full text-sm px-7 py-3.5 font-semibold border transition-all duration-200 hover:scale-105"
           style={{ borderColor: C_BORDER, color: C_WHITE, background: C_CARD }}>
           <span className="absolute inset-[-2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"

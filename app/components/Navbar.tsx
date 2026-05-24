@@ -103,7 +103,9 @@ export default function Navbar() {
 
         {/* Say hi button */}
         <a
-          href="mailto:funandentertainmentwithus@gmail.com"
+          href="https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
           className="group relative text-xs rounded-full px-3 py-1.5 transition-all duration-200 hidden lg:flex items-center gap-1"
           style={{ color: "hsl(0 0% 96%)" }}
         >
@@ -162,7 +164,9 @@ export default function Navbar() {
             );
           })}
           <a
-            href="mailto:funandentertainmentwithus@gmail.com"
+            href="https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm rounded-xl px-4 py-2.5 mt-1 text-center font-medium"
             style={{ background: "linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)", color: "hsl(0 0% 4%)" }}
             onClick={() => setMenuOpen(false)}

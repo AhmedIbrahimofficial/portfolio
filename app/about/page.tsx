@@ -57,7 +57,9 @@ export default function AboutPage() {
                 <div key={item.label} className="flex flex-col gap-1">
                   <span className="text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: "#666666" }}>{item.label}</span>
                   {item.isLink ? (
-                    <a href={`mailto:${item.value}`} className="text-sm font-semibold hover:text-[#89AACC] transition-colors"
+                    <a href="https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com"
+                      target="_blank" rel="noopener noreferrer"
+                      className="text-sm font-semibold hover:text-[#89AACC] transition-colors"
                       style={{ color: "#ffffff" }}>{item.value}</a>
                   ) : (
                     <span className="text-sm font-semibold" style={{ color: "#ffffff" }}>{item.value}</span>

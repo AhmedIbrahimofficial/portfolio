@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ScrollReset from "./components/ScrollReset";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} h-full`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -38,6 +39,7 @@ export default function RootLayout({
         className="min-h-full antialiased"
         style={{ background: "hsl(0 0% 4%)", color: "hsl(0 0% 96%)" }}
       >
+        <ScrollReset />
         {children}
       </body>
     </html>

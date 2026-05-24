@@ -5,10 +5,10 @@ import HlsVideo from "./HlsVideo";
 
 const MARQUEE_TEXT = "BUILDING THE FUTURE • ";
 const SOCIAL_LINKS = [
-  { label: "Twitter",  href: "https://twitter.com" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/ahmed-ibrahim" },
-  { label: "Dribbble", href: "https://dribbble.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/rafaqat-hussain-5615483a9/" },
+  { label: "Twitter",  href: "https://x.com/ZehanxTech" },
   { label: "GitHub",   href: "https://github.com/AhmedIbrahimofficial" },
+  { label: "ZehanxTech", href: "https://zehanxtech.com" },
 ];
 
 export default function ContactFooter() {
@@ -39,7 +39,7 @@ export default function ContactFooter() {
           <div ref={marqueeRef} className="flex whitespace-nowrap will-change-transform">
             {Array.from({ length: 20 }).map((_, i) => (
               <span key={i} className="font-display italic text-4xl md:text-6xl lg:text-7xl flex-shrink-0 pr-8"
-                style={{ fontFamily: "'Instrument Serif', serif", color: "rgba(255,255,255,0.07)" }}>
+                style={{ fontFamily: "'Instrument Serif', serif", color: "#ffffff" }}>
                 {MARQUEE_TEXT}
               </span>
             ))}
@@ -57,7 +57,9 @@ export default function ContactFooter() {
             <em style={{ color: "#89AACC" }}>great</em>
           </h2>
 
-          <a href="mailto:funandentertainmentwithus@gmail.com"
+          <a href="https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative inline-flex items-center gap-2 rounded-full text-sm px-8 py-4 font-bold border transition-all duration-200 hover:scale-105"
             style={{ borderColor: "#444", color: "#ffffff", background: "#161616" }}>
             <span className="absolute inset-[-2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"

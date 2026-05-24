@@ -22,11 +22,11 @@ export default function StatsSection() {
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <div className="w-full h-px mb-16" style={{ background: "#2a2a2a" }} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 md:gap-6 text-center sm:text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 md:gap-6 text-center">
           {STATS.map((stat, i) => (
             <motion.div key={stat.label} custom={i} variants={inView} initial="hidden"
               whileInView="visible" viewport={{ once: true, margin: "-80px" }}
-              className="flex flex-col items-center sm:items-start gap-2">
+              className="flex flex-col items-center gap-2">
               <span className="font-display italic" style={{
                 fontSize: "clamp(3rem, 6vw, 5rem)",
                 fontFamily: "'Instrument Serif', serif",

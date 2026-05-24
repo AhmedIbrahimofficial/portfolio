@@ -1,13 +1,9 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-
-const ENTRIES = [
-  { id: 1, title: "Building AI-Powered Web Platforms in 2025", tag: "AI & Dev",  readTime: "5 min read", date: "May 2025", emoji: "🤖" },
-  { id: 2, title: "Why Every Business Needs a Custom Digital Identity", tag: "Design",   readTime: "4 min read", date: "Apr 2025", emoji: "🎨" },
-  { id: 3, title: "From Idea to Launch: My Full-Stack Workflow",        tag: "Process",  readTime: "6 min read", date: "Mar 2025", emoji: "⚙️" },
-  { id: 4, title: "Cybersecurity Basics Every Developer Should Know",   tag: "Security", readTime: "7 min read", date: "Feb 2025", emoji: "🔒" },
-];
+import Image from "next/image";
+import Link from "next/link";
+import { JOURNAL_ENTRIES } from "../lib/journal";
 
 const inView: Variants = {
   hidden:  { opacity: 0, y: 30 },
@@ -39,7 +35,8 @@ export default function JournalSection() {
             </p>
           </div>
 
-          <a href="#" className="group relative hidden md:inline-flex items-center gap-2 rounded-full text-sm px-5 py-2.5 border font-bold transition-all duration-200 hover:scale-105 flex-shrink-0"
+          <Link href="/journal"
+            className="group relative hidden md:inline-flex items-center gap-2 rounded-full text-sm px-5 py-2.5 border font-bold transition-all duration-200 hover:scale-105 flex-shrink-0"
             style={{ borderColor: "#444", color: "#ffffff", background: "#0a0a0a" }}>
             <span className="absolute inset-[-2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
               style={{ background: "linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)", zIndex: -1 }} />
@@ -47,43 +44,51 @@ export default function JournalSection() {
               style={{ background: "#0a0a0a" }}>
               View all →
             </span>
-          </a>
+          </Link>
         </motion.div>
 
         {/* Entries */}
         <div className="flex flex-col gap-3">
-          {ENTRIES.map((entry, i) => (
-            <motion.a key={entry.id} href="#"
-              className="group flex items-center gap-4 sm:gap-6 p-4 rounded-[40px] sm:rounded-full border transition-all duration-300"
-              style={{ background: "#141414", borderColor: "#2a2a2a" }}
+          {JOURNAL_ENTRIES.map((entry, i) => (
+            <motion.div key={entry.id}
               variants={inView} initial="hidden" whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }} transition={{ delay: i * 0.08 }}
-              whileHover={{ borderColor: "#444" }}>
+              viewport={{ once: true, margin: "-40px" }} transition={{ delay: i * 0.08 }}>
+              <Link href={`/journal/${entry.slug}`}
+                className="group flex items-center gap-4 sm:gap-6 p-3 rounded-[40px] sm:rounded-full border transition-all duration-300 hover:border-[#444]"
+                style={{ background: "#141414", borderColor: "#2a2a2a" }}>
 
-              {/* Emoji */}
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 text-xl"
-                style={{ background: "#222222" }} suppressHydrationWarning>
-                <span suppressHydrationWarning aria-hidden>{entry.emoji}</span>
-              </div>
+                {/* Circle image */}
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden flex-shrink-0 border-2"
+                  style={{ borderColor: "#333" }}>
+                  <Image
+                    src={entry.imageUrl}
+                    alt={entry.imageAlt}
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
 
-              {/* Text */}
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold truncate" style={{ color: "#ffffff" }}>{entry.title}</p>
-                <p className="text-xs mt-0.5 font-semibold" style={{ color: "#aaaaaa" }}>{entry.tag}</p>
-              </div>
+                {/* Text */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold truncate group-hover:text-[#89AACC] transition-colors duration-200"
+                    style={{ color: "#ffffff" }}>{entry.title}</p>
+                  <p className="text-xs mt-0.5 font-semibold" style={{ color: "#aaaaaa" }}>{entry.tag}</p>
+                </div>
 
-              {/* Meta */}
-              <div className="hidden sm:flex items-center gap-4 flex-shrink-0">
-                <span className="text-xs font-semibold" style={{ color: "#aaaaaa" }}>{entry.readTime}</span>
-                <span className="text-xs rounded-full px-3 py-1 border font-semibold"
-                  style={{ background: "#0a0a0a", borderColor: "#333", color: "#dddddd" }}>
-                  {entry.date}
-                </span>
-              </div>
+                {/* Meta */}
+                <div className="hidden sm:flex items-center gap-4 flex-shrink-0">
+                  <span className="text-xs font-semibold" style={{ color: "#aaaaaa" }}>{entry.readTime}</span>
+                  <span className="text-xs rounded-full px-3 py-1 border font-semibold"
+                    style={{ background: "#0a0a0a", borderColor: "#333", color: "#dddddd" }}>
+                    {entry.date}
+                  </span>
+                </div>
 
-              <span className="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0 font-bold"
-                style={{ color: "#89AACC" }}>→</span>
-            </motion.a>
+                <span className="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0 font-bold"
+                  style={{ color: "#89AACC" }}>→</span>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>
