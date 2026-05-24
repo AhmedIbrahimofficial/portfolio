@@ -3,87 +3,70 @@
 import { useEffect, useRef } from "react";
 
 export default function CustomCursor() {
-  const dotRef   = useRef<HTMLDivElement>(null);
-  const ringRef  = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only on non-touch devices
+    // Only on mouse devices, not touch
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
-    let mouseX = 0, mouseY = 0;
-    let ringX  = 0, ringY  = 0;
-    let raf: number;
+    const el = cursorRef.current;
+    if (!el) return;
+
+    el.style.opacity = "1";
 
     const onMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
-      }
+      el.style.left = e.clientX + "px";
+      el.style.top  = e.clientY + "px";
     };
 
-    const animate = () => {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${ringX - 16}px, ${ringY - 16}px)`;
-      }
-      raf = requestAnimationFrame(animate);
+    const onEnter = () => {
+      el.style.width  = "40px";
+      el.style.height = "40px";
+      el.style.background = "rgba(137,170,204,0.15)";
+      el.style.border = "2px solid #89AACC";
     };
 
-    const onEnterLink = () => {
-      if (ringRef.current) ringRef.current.style.transform += " scale(1.6)";
-      if (ringRef.current) ringRef.current.style.borderColor = "#89AACC";
-    };
-    const onLeaveLink = () => {
-      if (ringRef.current) ringRef.current.style.borderColor = "rgba(137,170,204,0.5)";
+    const onLeave = () => {
+      el.style.width  = "12px";
+      el.style.height = "12px";
+      el.style.background = "#89AACC";
+      el.style.border = "none";
     };
 
     document.addEventListener("mousemove", onMove);
-    raf = requestAnimationFrame(animate);
 
-    // Scale ring on interactive elements
-    const addHover = () => {
-      document.querySelectorAll("a, button, [role='button']").forEach((el) => {
-        el.addEventListener("mouseenter", onEnterLink);
-        el.addEventListener("mouseleave", onLeaveLink);
-      });
-    };
-    addHover();
-
-    // Hide default cursor
-    document.documentElement.style.cursor = "none";
+    const interactives = document.querySelectorAll("a, button, [role='button'], input, textarea");
+    interactives.forEach((el) => {
+      el.addEventListener("mouseenter", onEnter);
+      el.addEventListener("mouseleave", onLeave);
+    });
 
     return () => {
       document.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
-      document.documentElement.style.cursor = "";
+      interactives.forEach((el) => {
+        el.removeEventListener("mouseenter", onEnter);
+        el.removeEventListener("mouseleave", onLeave);
+      });
     };
   }, []);
 
   return (
-    <>
-      {/* Dot */}
-      <div
-        ref={dotRef}
-        aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[9999] w-2 h-2 rounded-full"
-        style={{
-          background: "#89AACC",
-          boxShadow: "0 0 8px #89AACC, 0 0 16px rgba(137,170,204,0.6)",
-          willChange: "transform",
-        }}
-      />
-      {/* Ring */}
-      <div
-        ref={ringRef}
-        aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[9998] w-8 h-8 rounded-full border-2 transition-[border-color] duration-200"
-        style={{
-          borderColor: "rgba(137,170,204,0.5)",
-          willChange: "transform",
-        }}
-      />
-    </>
+    <div
+      ref={cursorRef}
+      aria-hidden
+      className="pointer-events-none fixed z-[9999] rounded-full"
+      style={{
+        width: "12px",
+        height: "12px",
+        background: "#89AACC",
+        transform: "translate(-50%, -50%)",
+        transition: "width 0.2s ease, height 0.2s ease, background 0.2s ease",
+        boxShadow: "0 0 10px rgba(137,170,204,0.8), 0 0 20px rgba(137,170,204,0.4)",
+        opacity: 0,
+        top: 0,
+        left: 0,
+        willChange: "left, top",
+      }}
+    />
   );
 }

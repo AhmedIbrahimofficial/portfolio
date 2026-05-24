@@ -102,7 +102,7 @@ p, span, li, a, label, td, th, blockquote {
 
 /* ── Custom cursor — hide default on desktop ── */
 @media (pointer: fine) {
-  * { cursor: none !important; }
+  body { cursor: none; }
 }
 
 /* ── Scrollbar ── */

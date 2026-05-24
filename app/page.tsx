@@ -3,12 +3,12 @@
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import ContactFooter from "./components/ContactFooter";
-import ContactForm from "./components/ContactForm";
 import ExplorationsSection from "./components/ExplorationsSection";
 import HeroSection from "./components/HeroSection";
 import JournalSection from "./components/JournalSection";
 import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/Navbar";
+import ReachOutSection from "./components/ReachOutSection";
 import StatsSection from "./components/StatsSection";
 import WorksSection from "./components/WorksSection";
 
@@ -43,7 +43,7 @@ export default function HomePage() {
         <JournalSection />
         <ExplorationsSection />
         <StatsSection />
-        <ContactForm />
+        <ReachOutSection />
         <ContactFooter />
       </div>
     </>
