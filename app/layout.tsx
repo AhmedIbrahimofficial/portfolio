@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import BackToTop from "./components/BackToTop";
 import CustomCursor from "./components/CustomCursor";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 import ScrollReset from "./components/ScrollReset";
 import VisitorTracker from "./components/VisitorTracker";
 
@@ -82,6 +83,20 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
           rel="stylesheet"
         />
+        {/* Google Analytics GA4 */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SB30JN9CKK" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-SB30JN9CKK', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
       </head>
       <body
         suppressHydrationWarning
@@ -92,6 +107,7 @@ export default function RootLayout({
         <CustomCursor />
         <BackToTop />
         <VisitorTracker />
+        <GoogleAnalytics />
         <Analytics />
         {children}
       </body>
