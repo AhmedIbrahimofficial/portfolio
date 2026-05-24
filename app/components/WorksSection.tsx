@@ -58,7 +58,7 @@ export default function WorksSection() {
               variants={inView} initial="hidden" whileInView="visible"
               viewport={{ once: true, margin: "-60px" }} transition={{ delay: i * 0.1 }}>
               <Link href={`/projects/${project.slug}`}
-                className="group relative block w-full h-full rounded-3xl overflow-hidden cursor-pointer"
+                className="group relative block w-full h-full rounded-3xl overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-1"
                 style={{ border: "1px solid #2a2a2a" }}>
                 <Image src={project.imageUrl} alt={project.imageAlt} fill
                   sizes="(max-width: 768px) 100vw, 60vw"
@@ -87,9 +87,25 @@ export default function WorksSection() {
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
                   <div>
                     <p className="text-xs mb-1 font-bold" style={{ color: "#dddddd" }}>{project.tag}</p>
-                    <p className="text-sm font-bold" style={{ color: "#ffffff" }}>{project.title}</p>
+                    <p className="text-sm font-bold mb-2" style={{ color: "#ffffff" }}>{project.title}</p>
+                    {/* Tech stack tags */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.stack.slice(0, 3).map((tech) => (
+                        <span key={tech}
+                          className="text-[10px] rounded-full px-2 py-0.5 font-semibold"
+                          style={{ background: "rgba(137,170,204,0.18)", color: "#89AACC", border: "1px solid rgba(137,170,204,0.25)" }}>
+                          {tech}
+                        </span>
+                      ))}
+                      {project.stack.length > 3 && (
+                        <span className="text-[10px] rounded-full px-2 py-0.5 font-semibold"
+                          style={{ background: "rgba(255,255,255,0.08)", color: "#aaaaaa", border: "1px solid rgba(255,255,255,0.12)" }}>
+                          +{project.stack.length - 3}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <span className="text-xs rounded-full px-3 py-1 border opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold"
+                  <span className="text-xs rounded-full px-3 py-1 border opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold flex-shrink-0"
                     style={{ background: "rgba(0,0,0,0.8)", borderColor: "#444", color: "#ffffff" }}>
                     {project.year}
                   </span>

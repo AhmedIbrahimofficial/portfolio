@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import BackToTop from "./components/BackToTop";
+import CustomCursor from "./components/CustomCursor";
 import ScrollReset from "./components/ScrollReset";
 
 const inter = Inter({
@@ -9,10 +11,55 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const BASE_URL = "https://ahmedibrahim.dev";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: "Ahmed Ibrahim — AI Innovator & Full Stack Developer",
   description:
-    "Portfolio of Ahmed Ibrahim — AI Innovator, Full Stack Web Developer, and Graphic Designer based in Gujranwala, Pakistan.",
+    "I build AI-powered web apps and design brands that convert — based in Gujranwala, Pakistan. Founder of ZehanxTech. 95+ projects shipped.",
+  keywords: [
+    "Ahmed Ibrahim",
+    "Full Stack Developer",
+    "AI Developer",
+    "Next.js",
+    "React",
+    "Gujranwala Pakistan",
+    "ZehanxTech",
+    "Web Development",
+    "Portfolio",
+  ],
+  authors: [{ name: "Ahmed Ibrahim", url: BASE_URL }],
+  creator: "Ahmed Ibrahim",
+  openGraph: {
+    type: "website",
+    url: BASE_URL,
+    title: "Ahmed Ibrahim — AI Innovator & Full Stack Developer",
+    description:
+      "I build AI-powered web apps and design brands that convert — based in Gujranwala, Pakistan. Founder of ZehanxTech.",
+    siteName: "Ahmed Ibrahim Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ahmed Ibrahim — AI Innovator & Full Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ahmed Ibrahim — AI Innovator & Full Stack Developer",
+    description:
+      "I build AI-powered web apps and design brands that convert — based in Gujranwala, Pakistan.",
+    creator: "@ZehanxTech",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
 };
 
 export default function RootLayout({
@@ -40,6 +87,8 @@ export default function RootLayout({
         style={{ background: "hsl(0 0% 4%)", color: "hsl(0 0% 96%)" }}
       >
         <ScrollReset />
+        <CustomCursor />
+        <BackToTop />
         {children}
       </body>
     </html>

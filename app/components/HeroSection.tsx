@@ -138,10 +138,17 @@ export default function HeroSection() {
           </span>
         </div>
 
-        {/* Location */}
+        {/* Description */}
         <p ref={(el) => addRef(el, 3)}
-          className="text-sm font-medium mb-8"
-          style={{ color: "rgba(255,255,255,0.45)", opacity: 0 }}>
+          className="text-sm md:text-base font-medium mb-3 max-w-lg text-center"
+          style={{ color: "rgba(255,255,255,0.6)", opacity: 0, lineHeight: 1.7 }}>
+          I build AI-powered web apps and design brands that convert — based in Gujranwala, Pakistan.
+        </p>
+
+        {/* Location */}
+        <p ref={(el) => addRef(el as HTMLElement | null, 6)}
+          className="text-xs font-medium mb-8"
+          style={{ color: "rgba(255,255,255,0.35)", opacity: 0 }}>
           📍 Gujranwala, Pakistan · ZehanxTech
         </p>
 
@@ -172,10 +179,9 @@ export default function HeroSection() {
             See My Work ↓
           </button>
 
-          {/* Let's Talk — WhatsApp */}
-          <a href="https://wa.me/923067060074"
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* Download CV */}
+          <a href="/Ahmed-Ibrahim-CV.pdf"
+            download
             className="group relative rounded-full text-sm px-8 py-4 font-bold border-2 transition-all duration-300 hover:scale-105"
             style={{
               borderColor: "rgba(255,255,255,0.25)",
@@ -185,6 +191,22 @@ export default function HeroSection() {
             }}>
             <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               style={{ background: "rgba(137,170,204,0.15)", boxShadow: "0 0 20px rgba(137,170,204,0.3)" }} />
+            <span className="relative z-10">Download CV ↓</span>
+          </a>
+
+          {/* Let's Talk — WhatsApp */}
+          <a href="https://wa.me/923067060074"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative rounded-full text-sm px-8 py-4 font-bold border-2 transition-all duration-300 hover:scale-105"
+            style={{
+              borderColor: "rgba(255,255,255,0.15)",
+              color: "#ffffff",
+              background: "rgba(255,255,255,0.03)",
+              backdropFilter: "blur(8px)",
+            }}>
+            <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ background: "rgba(137,170,204,0.1)", boxShadow: "0 0 20px rgba(137,170,204,0.2)" }} />
             <span className="relative z-10">Let&apos;s Talk 💬</span>
           </a>
         </div>

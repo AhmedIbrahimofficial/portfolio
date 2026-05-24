@@ -38,8 +38,14 @@ export default function ContactFooter() {
         <div className="overflow-hidden mb-12 md:mb-16" style={{ maxWidth: "100vw" }}>
           <div ref={marqueeRef} className="flex whitespace-nowrap will-change-transform">
             {Array.from({ length: 20 }).map((_, i) => (
-              <span key={i} className="font-display italic text-3xl md:text-5xl lg:text-6xl flex-shrink-0 pr-8"
-                style={{ fontFamily: "'Instrument Serif', serif", color: "#ffffff" }}>
+              <span key={i}
+                className="font-display italic flex-shrink-0 pr-8 select-none"
+                style={{
+                  fontFamily: "'Instrument Serif', serif",
+                  fontSize: "clamp(2rem, 5vw, 4rem)",
+                  color: i % 2 === 0 ? "rgba(255,255,255,0.08)" : "rgba(137,170,204,0.15)",
+                  letterSpacing: "0.02em",
+                }}>
                 {MARQUEE_TEXT}
               </span>
             ))}

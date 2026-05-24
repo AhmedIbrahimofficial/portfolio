@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -7,6 +8,39 @@ import { getEntryBySlug, JOURNAL_ENTRIES } from "../../lib/journal";
 
 export function generateStaticParams() {
   return JOURNAL_ENTRIES.map((e) => ({ slug: e.slug }));
+}
+
+export async function generateMetadata(
+  props: PageProps<"/journal/[slug]">
+): Promise<Metadata> {
+  const { slug } = await props.params;
+  const entry = getEntryBySlug(slug);
+  if (!entry) return {};
+
+  const BASE_URL = "https://ahmedibrahim.dev";
+  const url = `${BASE_URL}/journal/${entry.slug}`;
+
+  return {
+    title: `${entry.title} — Ahmed Ibrahim`,
+    description: entry.intro.slice(0, 160),
+    openGraph: {
+      type: "article",
+      url,
+      title: entry.title,
+      description: entry.intro.slice(0, 160),
+      images: [{ url: entry.imageUrl, width: 1200, height: 630, alt: entry.imageAlt }],
+      publishedTime: entry.date,
+      authors: ["Ahmed Ibrahim"],
+      tags: [entry.tag, ...entry.tools],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: entry.title,
+      description: entry.intro.slice(0, 160),
+      images: [entry.imageUrl],
+    },
+    alternates: { canonical: url },
+  };
 }
 
 export default async function JournalArticlePage(props: PageProps<"/journal/[slug]">) {

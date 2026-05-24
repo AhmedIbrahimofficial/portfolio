@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import { getProjectBySlug, PROJECTS } from "../../lib/projects";
@@ -13,6 +14,36 @@ const C_BORDER = "hsl(0 0% 18%)";
 
 export function generateStaticParams() {
   return PROJECTS.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata(
+  props: PageProps<"/projects/[slug]">
+): Promise<Metadata> {
+  const { slug } = await props.params;
+  const project = getProjectBySlug(slug);
+  if (!project) return {};
+
+  const BASE_URL = "https://ahmedibrahim.dev";
+  const url = `${BASE_URL}/projects/${project.slug}`;
+
+  return {
+    title: `${project.title} — Ahmed Ibrahim`,
+    description: project.description,
+    openGraph: {
+      type: "article",
+      url,
+      title: `${project.title} — ${project.tag}`,
+      description: project.description,
+      images: [{ url: project.imageUrl, width: 1200, height: 630, alt: project.imageAlt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — Ahmed Ibrahim`,
+      description: project.description,
+      images: [project.imageUrl],
+    },
+    alternates: { canonical: url },
+  };
 }
 
 export default async function ProjectPage(props: PageProps<"/projects/[slug]">) {

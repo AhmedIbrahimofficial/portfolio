@@ -3,18 +3,16 @@
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import ContactFooter from "./components/ContactFooter";
+import ContactForm from "./components/ContactForm";
 import ExplorationsSection from "./components/ExplorationsSection";
 import HeroSection from "./components/HeroSection";
 import JournalSection from "./components/JournalSection";
 import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/Navbar";
-import ReachOutSection from "./components/ReachOutSection";
 import StatsSection from "./components/StatsSection";
 import WorksSection from "./components/WorksSection";
 
 export default function HomePage() {
-  // Start as false so SSR and initial client render match (no loading screen on server).
-  // After mount, flip to true so the loading screen plays on the client only.
   const [mounted, setMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,14 +23,12 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Loading screen — client-only, avoids SSR mismatch */}
       <AnimatePresence>
         {mounted && isLoading && (
           <LoadingScreen onComplete={() => setIsLoading(false)} />
         )}
       </AnimatePresence>
 
-      {/* Main content */}
       <div
         suppressHydrationWarning
         style={{
@@ -46,8 +42,8 @@ export default function HomePage() {
         <WorksSection />
         <JournalSection />
         <ExplorationsSection />
-        <ReachOutSection />
         <StatsSection />
+        <ContactForm />
         <ContactFooter />
       </div>
     </>
