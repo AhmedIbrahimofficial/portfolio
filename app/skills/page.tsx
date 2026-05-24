@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import CircuitBackground from "../components/CircuitBackground";
 import { useGitHub } from "../lib/useGitHub";
 
 const skillCategories = [
@@ -45,7 +46,12 @@ export default function SkillsPage() {
   const { data: gh, loading: ghLoading } = useGitHub();
 
   return (
-    <div style={{ background: "#0a0a0a", minHeight: "100vh" }}>
+    <div style={{ background: "#050810", minHeight: "100vh", position: "relative" }}>
+      {/* Animated circuit board background */}
+      <CircuitBackground />
+
+      {/* Content above background */}
+      <div style={{ position: "relative", zIndex: 1 }}>
       <Navbar />
 
       {/* Hero */}
@@ -66,7 +72,7 @@ export default function SkillsPage() {
       </section>
 
       {/* GitHub Language Stats — Live */}
-      <section className="py-12 px-6" style={{ background: "#080808" }}>
+      <section className="py-12 px-6" style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(2px)" }}>
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-px" style={{ background: "#333" }} />
@@ -117,7 +123,7 @@ export default function SkillsPage() {
       </section>
 
       {/* Tech Stack Pills */}
-      <section className="py-12 px-6" style={{ background: "#0d0d0d" }}>
+      <section className="py-12 px-6" style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(2px)" }}>
         <div className="max-w-5xl mx-auto">
           <h2 className="text-sm uppercase tracking-[0.2em] mb-6 font-bold" style={{ color: "#aaaaaa" }}>Technologies I work with</h2>
           <div className="flex flex-wrap gap-3">
@@ -166,7 +172,7 @@ export default function SkillsPage() {
       </section>
 
       {/* Services */}
-      <section className="py-16 px-6" style={{ background: "#0d0d0d" }}>
+      <section className="py-16 px-6" style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(2px)" }}>
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-px" style={{ background: "#333" }} />
@@ -205,6 +211,7 @@ export default function SkillsPage() {
       </section>
 
       <Footer />
+      </div>{/* end content wrapper */}
     </div>
   );
 }
