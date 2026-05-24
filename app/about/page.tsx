@@ -1,8 +1,11 @@
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import stats from "../lib/stats.json";
 
 export default function AboutPage() {
+  const connections = stats.linkedin_connections;
+  const followers   = stats.linkedin_followers;
   return (
     <div style={{ background: "#0a0a0a", minHeight: "100vh" }}>
       <Navbar />
@@ -52,7 +55,7 @@ export default function AboutPage() {
                 { label: "Company",     value: "ZehanxTech" },
                 { label: "Email",       value: "funandentertainmentwithus@gmail.com", isLink: true },
                 { label: "Work Mode",   value: "Hybrid & Remote" },
-                { label: "Connections", value: "411 LinkedIn · 425 Followers" },
+                { label: "Connections", value: `${connections} LinkedIn · ${followers} Followers` },
               ].map((item) => (
                 <div key={item.label} className="flex flex-col gap-1">
                   <span className="text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: "#666666" }}>{item.label}</span>
