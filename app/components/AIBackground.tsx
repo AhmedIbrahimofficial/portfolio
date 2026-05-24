@@ -2,18 +2,34 @@
 
 import { useEffect, useRef } from "react";
 
-interface Node {
+interface Particle {
   x: number;
   y: number;
+  originX: number;
+  originY: number;
+  size: number;
+  color: string;
+  alpha: number;
   vx: number;
   vy: number;
-  radius: number;
-  pulse: number;
-  pulseSpeed: number;
+  ease: number;
+  friction: number;
+  dx: number;
+  dy: number;
+  dist: number;
+  force: number;
+  angle: number;
 }
 
+const COLORS = [
+  "rgba(137,170,204,",   // #89AACC — main accent
+  "rgba(78,133,191,",    // #4E85BF — secondary
+  "rgba(255,255,255,",   // white dots
+];
+
 export default function AIBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef   = useRef<HTMLCanvasElement>(null);
+  const mouseRef    = useRef({ x: -9999, y: -9999 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,73 +38,89 @@ export default function AIBackground() {
     if (!ctx) return;
 
     let animId: number;
-    let nodes: Node[] = [];
-    const NODE_COUNT = 60;
-    const MAX_DIST    = 160;
-    const ACCENT      = { r: 137, g: 170, b: 204 }; // #89AACC
+    let particles: Particle[] = [];
+
+    const PARTICLE_COUNT = 120;
+    const MOUSE_RADIUS   = 100;
+    const EASE           = 0.05;
+    const FRICTION       = 0.85;
 
     const resize = () => {
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
     };
 
-    const initNodes = () => {
-      nodes = Array.from({ length: NODE_COUNT }, () => ({
-        x:          Math.random() * canvas.width,
-        y:          Math.random() * canvas.height,
-        vx:         (Math.random() - 0.5) * 0.4,
-        vy:         (Math.random() - 0.5) * 0.4,
-        radius:     Math.random() * 2 + 1,
-        pulse:      Math.random() * Math.PI * 2,
-        pulseSpeed: Math.random() * 0.02 + 0.01,
-      }));
+    const init = () => {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const x     = Math.random() * canvas.width;
+        const y     = Math.random() * canvas.height;
+        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        const alpha = Math.random() * 0.5 + 0.15;
+        const size  = Math.random() * 2 + 0.5;
+
+        particles.push({
+          x, y,
+          originX: x,
+          originY: y,
+          size,
+          color,
+          alpha,
+          vx: 0, vy: 0,
+          ease: EASE + Math.random() * 0.04,
+          friction: FRICTION,
+          dx: 0, dy: 0,
+          dist: 0, force: 0, angle: 0,
+        });
+      }
     };
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Update + draw nodes
-      for (const n of nodes) {
-        n.x += n.vx;
-        n.y += n.vy;
-        n.pulse += n.pulseSpeed;
+      for (const p of particles) {
+        // Mouse repulsion
+        p.dx    = mouseRef.current.x - p.x;
+        p.dy    = mouseRef.current.y - p.y;
+        p.dist  = Math.sqrt(p.dx * p.dx + p.dy * p.dy);
+        p.force = -MOUSE_RADIUS / p.dist;
 
-        // Bounce off edges
-        if (n.x < 0 || n.x > canvas.width)  n.vx *= -1;
-        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+        if (p.dist < MOUSE_RADIUS) {
+          p.angle = Math.atan2(p.dy, p.dx);
+          p.vx   += p.force * Math.cos(p.angle);
+          p.vy   += p.force * Math.sin(p.angle);
+        }
 
-        const glow = (Math.sin(n.pulse) + 1) / 2; // 0–1
+        // Spring back to origin
+        p.x  += (p.vx *= p.friction) + (p.originX - p.x) * p.ease;
+        p.y  += (p.vy *= p.friction) + (p.originY - p.y) * p.ease;
 
-        // Outer glow ring
-        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius * 6);
-        grad.addColorStop(0, `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},${0.25 * glow})`);
-        grad.addColorStop(1, "rgba(0,0,0,0)");
+        // Draw dot
         ctx.beginPath();
-        ctx.arc(n.x, n.y, n.radius * 6, 0, Math.PI * 2);
-        ctx.fillStyle = grad;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + p.alpha + ")";
         ctx.fill();
 
-        // Core dot
+        // Subtle glow
         ctx.beginPath();
-        ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},${0.6 + 0.4 * glow})`;
+        ctx.arc(p.x, p.y, p.size * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + (p.alpha * 0.15) + ")";
         ctx.fill();
       }
 
-      // Draw connections
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx   = nodes[i].x - nodes[j].x;
-          const dy   = nodes[i].y - nodes[j].y;
+      // Draw connections between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx   = particles[i].x - particles[j].x;
+          const dy   = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < MAX_DIST) {
-            const alpha = (1 - dist / MAX_DIST) * 0.18;
+          if (dist < 90) {
             ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},${alpha})`;
-            ctx.lineWidth   = 0.8;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(137,170,204,${(1 - dist / 90) * 0.12})`;
+            ctx.lineWidth   = 0.5;
             ctx.stroke();
           }
         }
@@ -97,19 +129,25 @@ export default function AIBackground() {
       animId = requestAnimationFrame(draw);
     };
 
-    resize();
-    initNodes();
-    draw();
+    const onMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    };
+    const onMouseLeave = () => {
+      mouseRef.current = { x: -9999, y: -9999 };
+    };
 
-    const ro = new ResizeObserver(() => {
-      resize();
-      initNodes();
-    });
-    ro.observe(canvas);
+    window.addEventListener("resize",      resize,      { passive: true });
+    window.addEventListener("mousemove",   onMouseMove, { passive: true });
+    window.addEventListener("mouseleave",  onMouseLeave);
+
+    resize();
+    draw();
 
     return () => {
       cancelAnimationFrame(animId);
-      ro.disconnect();
+      window.removeEventListener("resize",     resize);
+      window.removeEventListener("mousemove",  onMouseMove);
+      window.removeEventListener("mouseleave", onMouseLeave);
     };
   }, []);
 
@@ -121,10 +159,10 @@ export default function AIBackground() {
       style={{
         position: "fixed",
         inset: 0,
-        width: "100%",
-        height: "100%",
+        width: "100vw",
+        height: "100vh",
         zIndex: 0,
-        opacity: 0.45,
+        opacity: 0.7,
       }}
     />
   );
