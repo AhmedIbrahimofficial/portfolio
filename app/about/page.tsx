@@ -55,7 +55,7 @@ export default function AboutPage() {
             </div>
 
             {/* Info card */}
-            <div className="rounded-2xl border p-6 space-y-5" style={{ background: "#141414", borderColor: "#2a2a2a" }}>
+            <div className="rounded-2xl border p-6 space-y-5" style={{ background: "rgba(5,10,30,0.55)", backdropFilter: "blur(12px)", borderColor: "rgba(255,255,255,0.08)" }}>
               {[
                 { label: "Name",        value: "Ahmed Ibrahim" },
                 { label: "Title",       value: "AI Innovator | Full Stack Web Developer" },

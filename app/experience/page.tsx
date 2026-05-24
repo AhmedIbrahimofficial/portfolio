@@ -53,7 +53,7 @@ export default function ExperiencePage() {
       </section>
 
       {/* Stats */}
-      <section className="py-10 px-6" style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)" }}>
+      <section className="py-10 px-6" style={{ background: "rgba(0,0,0,0.0)" }}>
         <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
           {[{ value: "6+", label: "Years Experience" }, { value: "3", label: "Roles Held" }, { value: "2", label: "Companies" }, { value: "100%", label: "Remote Capable" }].map((stat) => (
             <div key={stat.label} className="flex flex-col items-center gap-1">
@@ -80,7 +80,7 @@ export default function ExperiencePage() {
                   </div>
 
                   <div className="rounded-2xl border p-6 md:p-8 transition-all duration-300 hover:border-[#89AACC]/40"
-                    style={{ background: "#141414", borderColor: "#2a2a2a" }}>
+                    style={{ background: "rgba(5,10,30,0.55)", backdropFilter: "blur(12px)", borderColor: "rgba(137,170,204,0.15)" }}>
                     <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                       <div>
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -116,7 +116,7 @@ export default function ExperiencePage() {
                     <div className="flex flex-wrap gap-2">
                       {exp.skills.map((skill) => (
                         <span key={skill} className="text-xs rounded-full px-3 py-1 border font-semibold"
-                          style={{ background: "#0a0a0a", borderColor: "#333", color: "#dddddd" }}>
+                          style={{ background: "rgba(137,170,204,0.08)", borderColor: "rgba(137,170,204,0.2)", color: "#89AACC" }}>
                           {skill}
                         </span>
                       ))}
