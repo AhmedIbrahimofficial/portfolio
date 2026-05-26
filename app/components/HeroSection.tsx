@@ -104,13 +104,13 @@ export default function HeroSection() {
         Available for projects
       </div>
 
-      {/* GitHub live stats — top right */}
+      {/* GitHub live stats — top right — desktop only */}
       {gh && (
         <a
           href="https://github.com/AhmedIbrahimofficial"
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute top-24 right-6 md:right-10 z-10 flex items-center gap-3 rounded-full px-4 py-2 text-xs font-bold border transition-all duration-200 hover:border-[#89AACC]"
+          className="absolute top-24 right-6 md:right-10 z-10 hidden md:flex items-center gap-3 rounded-full px-4 py-2 text-xs font-bold border transition-all duration-200 hover:border-[#89AACC]"
           style={{
             background: "rgba(0,0,0,0.5)",
             borderColor: "rgba(255,255,255,0.15)",
