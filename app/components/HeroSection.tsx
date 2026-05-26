@@ -91,26 +91,38 @@ export default function HeroSection() {
       {/* Available badge — top left */}
       <div
         ref={(el) => addRef(el, 0)}
-        className="absolute top-24 left-6 md:left-10 z-10 flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold border"
+        className="absolute top-24 left-1/2 -translate-x-1/2 md:left-6 md:translate-x-0 md:left-10 z-10 flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold border"
         style={{
           background: "rgba(0,0,0,0.5)",
           borderColor: "rgba(255,255,255,0.15)",
           color: "#ffffff",
           backdropFilter: "blur(8px)",
           opacity: 0,
+          whiteSpace: "nowrap",
         }}
       >
         <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#4ade80" }} />
         Available for projects
       </div>
 
-      {/* GitHub live stats — top right — desktop only */}
+      {/* GitHub live stats — below available badge on mobile, top right on desktop */}
       {gh && (
         <a
           href="https://github.com/AhmedIbrahimofficial"
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute top-24 right-6 md:right-10 z-10 hidden md:flex items-center gap-3 rounded-full px-4 py-2 text-xs font-bold border transition-all duration-200 hover:border-[#89AACC]"
+          className="absolute z-10 flex items-center gap-3 rounded-full px-4 py-2 text-xs font-bold border transition-all duration-200 hover:border-[#89AACC]"
+          style={{
+            top: "calc(6rem + 44px)",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "rgba(0,0,0,0.5)",
+            borderColor: "rgba(255,255,255,0.15)",
+            color: "#ffffff",
+            backdropFilter: "blur(8px)",
+            whiteSpace: "nowrap",
+          }}
+        >
           style={{
             background: "rgba(0,0,0,0.5)",
             borderColor: "rgba(255,255,255,0.15)",
