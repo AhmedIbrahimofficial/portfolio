@@ -100,11 +100,6 @@ p, span, li, a, label, td, th, blockquote {
   animation: role-fade-in 0.4s ease-out forwards;
 }
 
-/* ── Custom cursor — hide default on desktop ── */
-@media (pointer: fine) {
-  body { cursor: none; }
-}
-
 /* ── Scrollbar ── */
 ::-webkit-scrollbar        { width: 4px; }
 ::-webkit-scrollbar-track  { background: hsl(var(--bg)); }

@@ -104,7 +104,6 @@ export default function RootLayout({
         style={{ background: "hsl(0 0% 4%)", color: "hsl(0 0% 96%)" }}
       >
         <ScrollReset />
-        <CustomCursor />
         <BackToTop />
         <VisitorTracker />
         <GoogleAnalytics />
