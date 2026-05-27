@@ -132,12 +132,6 @@ export default function HeroSection() {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
 
-        <p ref={(el) => addRef(el, 1)}
-          className="text-xs uppercase tracking-[0.3em] mb-8 font-semibold"
-          style={{ color: "#aaaaaa", opacity: 0 }}>
-          Portfolio &apos;26
-        </p>
-
         <h1 ref={nameRef}
           className="font-display italic leading-[0.9] tracking-tight mb-4"
           style={{
