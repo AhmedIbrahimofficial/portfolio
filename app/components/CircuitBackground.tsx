@@ -326,6 +326,7 @@ export default function CircuitBackground() {
         width:  "100vw",
         height: "100vh",
         zIndex: 0,
+        opacity: 0.35,
       }}
     />
   );
