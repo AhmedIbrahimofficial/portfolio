@@ -7,7 +7,7 @@ type Status = "idle" | "sending" | "success" | "error";
 // ─────────────────────────────────────────────
 // HOW TO GET YOUR WEB3FORMS KEY (one-time, free):
 //   1. Go to https://web3forms.com
-//   2. Enter: funandentertainmentwithus@gmail.com
+//   2. Enter: ahmedibrahimofficials@gmail.com
 //   3. Click "Create Access Key"
 //   4. Check your Gmail — copy the key
 //   5. Replace WEB3FORMS_KEY below with that key

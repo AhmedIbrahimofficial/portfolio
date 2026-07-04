@@ -6,9 +6,9 @@ const CONTACTS = [
   {
     id: 1,
     label: "LinkedIn",
-    handle: "@rafaqat-hussain",
+    handle: "@ahmed-ibrahim",
     desc: "Connect professionally & view my career",
-    href: "https://www.linkedin.com/in/rafaqat-hussain-5615483a9/",
+    href: "https://www.linkedin.com/in/ahmed-ibrahim-5615483a9/",
     color: "#0A66C2",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -58,9 +58,9 @@ const CONTACTS = [
   {
     id: 5,
     label: "Gmail",
-    handle: "funandentertainmentwithus",
+    handle: "ahmedibrahimofficials",
     desc: "Send a detailed project inquiry",
-    href: "https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&to=ahmedibrahimofficials@gmail.com",
     color: "#EA4335",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">

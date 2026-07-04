@@ -124,7 +124,7 @@ export default function Navbar() {
           <span className="hidden lg:block w-px h-5 mx-1" style={{ background: "hsl(0 0% 12%)" }} />
 
           {/* Say hi — desktop */}
-          <a href="https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com"
+          <a href="https://mail.google.com/mail/?view=cm&to=ahmedibrahimofficials@gmail.com"
             target="_blank" rel="noopener noreferrer"
             className="group relative text-xs rounded-full px-3 py-1.5 transition-all duration-200 hidden lg:flex items-center gap-1"
             style={{ color: "#fff" }}>

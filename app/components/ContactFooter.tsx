@@ -5,7 +5,7 @@ import HlsVideo from "./HlsVideo";
 
 const MARQUEE_TEXT = "BUILDING THE FUTURE • ";
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/rafaqat-hussain-5615483a9/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmed-ibrahim-5615483a9/" },
   { label: "Twitter",  href: "https://x.com/ZehanxTech" },
   { label: "GitHub",   href: "https://github.com/AhmedIbrahimofficial" },
   { label: "ZehanxTech", href: "https://zehanxtech.com" },
@@ -57,7 +57,7 @@ export default function ContactFooter() {
             <em style={{ color: "#89AACC" }}>great</em>
           </h2>
 
-          <a href="https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com"
+          <a href="https://mail.google.com/mail/?view=cm&to=ahmedibrahimofficials@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative inline-flex items-center gap-2 rounded-full text-sm px-8 py-4 font-bold border transition-all duration-200 hover:scale-105"
@@ -66,7 +66,7 @@ export default function ContactFooter() {
               style={{ background: "linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)", zIndex: -1 }} />
             <span className="relative z-10 flex items-center gap-2 rounded-full px-8 py-4 -mx-8 -my-4"
               style={{ background: "#161616" }}>
-              funandentertainmentwithus@gmail.com ↗
+              ahmedibrahimofficials@gmail.com ↗
             </span>
           </a>
         </div>
@@ -87,7 +87,7 @@ export default function ContactFooter() {
             <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#4ade80" }} />
             <span className="text-xs font-bold" style={{ color: "#cccccc" }}>Available for projects</span>
           </div>
-          <p className="text-xs font-medium" style={{ color: "#666666" }}>© 2025 Ahmed Ibrahim</p>
+          <p className="text-xs font-medium" style={{ color: "#666666" }}>© {new Date().getFullYear()} Ahmed Ibrahim</p>
         </div>
       </div>
     </footer>

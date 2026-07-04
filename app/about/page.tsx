@@ -61,14 +61,14 @@ export default function AboutPage() {
                 { label: "Title",       value: "AI Innovator | Full Stack Web Developer" },
                 { label: "Location",    value: "Gujranwala, Punjab, Pakistan" },
                 { label: "Company",     value: "ZehanxTech" },
-                { label: "Email",       value: "funandentertainmentwithus@gmail.com", isLink: true },
+                { label: "Email", value: "ahmedibrahimofficials@gmail.com", isLink: true },
                 { label: "Work Mode",   value: "Hybrid & Remote" },
                 { label: "Connections", value: `${connections} LinkedIn · ${followers} Followers` },
               ].map((item) => (
                 <div key={item.label} className="flex flex-col gap-1">
                   <span className="text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: "#666666" }}>{item.label}</span>
                   {item.isLink ? (
-                    <a href="https://mail.google.com/mail/?view=cm&to=funandentertainmentwithus@gmail.com"
+                    <a href="https://mail.google.com/mail/?view=cm&to=ahmedibrahimofficials@gmail.com"
                       target="_blank" rel="noopener noreferrer"
                       className="text-sm font-semibold hover:text-[#89AACC] transition-colors"
                       style={{ color: "#ffffff" }}>{item.value}</a>
