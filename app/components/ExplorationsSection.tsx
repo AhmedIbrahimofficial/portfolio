@@ -189,10 +189,21 @@ export default function ExplorationsSection() {
         className="relative"
         style={{ minHeight: "300vh", background: "#0a0a0a", isolation: "isolate" }}
       >
+        {/* Background image */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ zIndex: 0 }}>
+          <Image
+            src="/bg-visual.jpg"
+            alt=""
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0" style={{ background: "rgba(10,10,10,0.72)" }} />
+        </div>
         {/* Layer 1 — Pinned center text */}
         <div
           ref={contentRef}
-          className="relative z-10 h-screen flex flex-col items-center justify-center text-center px-6 pointer-events-none"
+          className="absolute top-0 left-0 right-0 z-10 h-screen flex flex-col items-center justify-center text-center px-6 pointer-events-none"
         >
           <div className="flex items-center gap-3 mb-4 justify-center">
             <div className="w-8 h-px" style={{ background: "#333" }} />
