@@ -12,8 +12,19 @@ const inView: Variants = {
 
 export default function JournalSection() {
   return (
-    <section id="journal" className="py-16 md:py-24" style={{ background: "#0a0a0a" }}>
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
+    <section id="journal" className="py-16 md:py-24 relative overflow-hidden" style={{ background: "#0a0a0a" }}>
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/bg-journal.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(10,10,10,0.78)" }} />
+      </div>
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
 
         {/* Header */}
         <motion.div variants={inView} initial="hidden" whileInView="visible"

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import Image from "next/image";
 
 const CONTACTS = [
   {
@@ -95,8 +96,22 @@ const cardAnim: Variants = {
 
 export default function ReachOutSection() {
   return (
-    <section id="reach-out" className="py-20 md:py-28 px-6" style={{ background: "#0a0a0a" }}>
-      <div className="max-w-[1100px] mx-auto">
+    <section id="reach-out" className="py-20 md:py-28 px-6 relative overflow-hidden" style={{ background: "#0a0a0a" }}>
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/bg-lets-connect.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        {/* heavier overlay at top, lighter at bottom so image shows through */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to bottom, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.72) 50%, rgba(10,10,10,0.82) 100%)"
+        }} />
+      </div>
+      <div className="relative z-10 max-w-[1100px] mx-auto">
 
         {/* Header */}
         <motion.div
