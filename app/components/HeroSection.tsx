@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import HlsVideo from "./HlsVideo";
+import Image from "next/image";
 import { useGitHub } from "../lib/useGitHub";
 
 const TAGLINES = [
@@ -81,14 +81,31 @@ export default function HeroSection() {
       ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-      <HlsVideo overlayOpacity="bg-black/40" />
+      {/* ── Hero background image ── */}
+      <div className="absolute inset-0">
+        <Image
+          src="/hero-procurement.png"
+          alt="Procurement partnership handshake"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        {/* Left-side gradient — keeps text readable, fades cleanly into image */}
+        <div className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to right, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.75) 40%, rgba(10,10,10,0.2) 65%, rgba(10,10,10,0.0) 100%)",
+          }}
+        />
+        {/* Subtle top/bottom fades */}
+        <div className="absolute top-0 left-0 right-0 h-32 pointer-events-none"
+          style={{ background: "linear-gradient(to bottom, rgba(10,10,10,0.6), transparent)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+          style={{ background: "linear-gradient(to top, #0a0a0a, transparent)" }} />
+      </div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to top, #0a0a0a, transparent)" }} />
-
-      {/* ── Top badges — stacked vertically, centered on mobile / left+right on desktop ── */}
-      <div className="absolute top-24 left-0 right-0 z-10 flex flex-col items-center gap-2 md:flex-row md:items-start md:justify-between md:px-10">
+      {/* ── Top badges — left aligned on desktop ── */}
+      <div className="absolute top-24 left-0 right-0 z-10 flex flex-col items-center gap-2 md:flex-row md:items-start md:justify-between md:px-16">
 
         {/* Available for projects */}
         <div
@@ -129,13 +146,13 @@ export default function HeroSection() {
         )}
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
+      {/* Content — left-aligned so image people stay visible on right */}
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 flex flex-col items-start text-left pt-24 pb-16">
 
         <h1 ref={nameRef}
-          className="font-display italic leading-[0.9] tracking-tight mb-4"
+          className="font-display italic leading-[0.9] tracking-tight mb-4 max-w-xl"
           style={{
-            fontSize: "clamp(3.5rem, 10vw, 8rem)",
+            fontSize: "clamp(3rem, 8vw, 7rem)",
             color: "#ffffff",
             fontFamily: "'Instrument Serif', serif",
             fontWeight: 400,
@@ -145,7 +162,7 @@ export default function HeroSection() {
         </h1>
 
         <div ref={(el) => addRef(el, 2)}
-          className="flex flex-wrap items-center justify-center gap-2 mb-5"
+          className="flex flex-wrap items-center gap-2 mb-5"
           style={{ opacity: 0 }}>
           <span className="text-base md:text-xl font-black uppercase tracking-wider" style={{ color: "#89AACC" }}>
             AI Innovator
@@ -157,7 +174,7 @@ export default function HeroSection() {
         </div>
 
         <p ref={(el) => addRef(el, 3)}
-          className="text-sm md:text-base font-medium mb-3 max-w-lg text-center"
+          className="text-sm md:text-base font-medium mb-3 max-w-lg text-left"
           style={{ color: "rgba(255,255,255,0.6)", opacity: 0, lineHeight: 1.7 }}>
           I build AI-powered web apps and design brands that convert — based in Gujranwala, Pakistan.
         </p>
@@ -169,7 +186,7 @@ export default function HeroSection() {
         </p>
 
         <div ref={(el) => addRef(el, 4)}
-          className="text-sm md:text-lg font-medium mb-12 h-7 flex items-center justify-center"
+          className="text-sm md:text-lg font-medium mb-12 h-7 flex items-center"
           style={{ color: "rgba(200,220,255,0.8)", opacity: 0 }}>
           <span>{tagline}</span>
           <span className="ml-0.5 inline-block w-0.5 h-5 align-middle"
@@ -177,7 +194,7 @@ export default function HeroSection() {
         </div>
 
         <div ref={(el) => addRef(el as HTMLElement | null, 5)}
-          className="inline-flex gap-4 flex-wrap justify-center"
+          className="inline-flex gap-4 flex-wrap"
           style={{ opacity: 0 }}>
 
           <button
@@ -210,7 +227,7 @@ export default function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+      <div className="absolute bottom-8 left-16 z-10 flex flex-col items-start gap-2">
         <span className="text-[10px] uppercase tracking-[0.25em] font-bold" style={{ color: "rgba(255,255,255,0.4)" }}>
           Scroll
         </span>
