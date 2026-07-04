@@ -24,7 +24,7 @@ export default function ProjectsPage() {
             Featured <em>projects</em>
           </h1>
           <p className="text-base max-w-lg" style={{ color: "hsl(0 0% 53%)" }}>
-            A curated selection of work spanning AI platforms, brand identities, web applications, and high-converting landing pages.
+            A curated selection of work spanning AI platforms, brand identities, web applications, business systems, and high-converting digital products — 80+ projects delivered.
           </p>
         </div>
       </section>

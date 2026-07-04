@@ -4,8 +4,8 @@ import { motion, type Variants } from "framer-motion";
 
 const STATS = [
   { value: "6+",   label: "Years Experience",  sub: "Since 2020" },
-  { value: "95+",  label: "Projects Done",      sub: "Across industries" },
-  { value: "100%", label: "Satisfied Clients",  sub: "Every single one" },
+  { value: "80+",  label: "Projects Done",      sub: "Across industries" },
+  { value: "50+",  label: "Happy Clients",      sub: "Across Pakistan" },
 ];
 
 const inView: Variants = {

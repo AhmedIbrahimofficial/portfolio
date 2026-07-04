@@ -24,7 +24,6 @@ export default function Footer() {
             <span className="text-sm font-bold block" style={{ color: "#ffffff" }}>Ahmed Ibrahim</span>
             <span className="text-[10px] font-medium" style={{ color: "#555" }}>
               {yearsExp}+ yrs exp
-              {repoCount !== null && ` · ${repoCount} repos`}
             </span>
           </div>
         </div>
