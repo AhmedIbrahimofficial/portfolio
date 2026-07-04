@@ -24,7 +24,96 @@ const LANG_COLORS: Record<string, string> = {
   Java: "#b07219", Dart: "#00B4AB", Swift: "#ffac45", Kotlin: "#A97BFF",
   Go: "#00ADD8", Rust: "#dea584", Ruby: "#701516", Shell: "#89e051",
   Vue: "#41b883", Svelte: "#ff3e00", "C#": "#178600",
+  Laravel: "#FF2D20", Blade: "#f05340", MySQL: "#00758F",
+  MongoDB: "#4DB33D", PostgreSQL: "#336791", SQLite: "#003B57",
+  GraphQL: "#E10098", "React Native": "#61DAFB", Flutter: "#54C5F8",
+  Sass: "#CC6699", Less: "#1D365D", Bootstrap: "#7952B3",
+  jQuery: "#0769AD", "Node.js": "#339933", Express: "#000000",
+  "Next.js": "#ffffff", "Tailwind CSS": "#38BDF8", Firebase: "#FFCA28",
+  Redis: "#DC382D", Docker: "#2496ED", Linux: "#FCC624",
+  Git: "#F05032", Figma: "#F24E1E", "Adobe XD": "#FF61F6",
+  Photoshop: "#31A8FF", Illustrator: "#FF9A00", "C": "#555555",
+  Bash: "#4EAA25", Markdown: "#083fa1", JSON: "#000000",
 };
+
+// All languages & tools grouped
+const ALL_LANGUAGES = [
+  {
+    group: "Languages",
+    items: [
+      { name: "JavaScript", color: "#f7df1e" },
+      { name: "TypeScript", color: "#3178c6" },
+      { name: "PHP", color: "#4F5D95" },
+      { name: "Python", color: "#3572A5" },
+      { name: "Dart", color: "#00B4AB" },
+      { name: "HTML5", color: "#e34c26" },
+      { name: "CSS3", color: "#563d7c" },
+      { name: "C++", color: "#f34b7d" },
+      { name: "C#", color: "#178600" },
+      { name: "Java", color: "#b07219" },
+      { name: "Bash", color: "#4EAA25" },
+      { name: "Sass", color: "#CC6699" },
+    ],
+  },
+  {
+    group: "Frameworks & Libraries",
+    items: [
+      { name: "React.js", color: "#61DAFB" },
+      { name: "Next.js", color: "#89AACC" },
+      { name: "Laravel", color: "#FF2D20" },
+      { name: "Node.js", color: "#339933" },
+      { name: "Express.js", color: "#aaaaaa" },
+      { name: "Flutter", color: "#54C5F8" },
+      { name: "Tailwind CSS", color: "#38BDF8" },
+      { name: "Bootstrap", color: "#7952B3" },
+      { name: "Framer Motion", color: "#BB4CE6" },
+      { name: "jQuery", color: "#0769AD" },
+      { name: "Vue.js", color: "#41b883" },
+      { name: "React Native", color: "#61DAFB" },
+    ],
+  },
+  {
+    group: "Databases",
+    items: [
+      { name: "MySQL", color: "#00758F" },
+      { name: "MongoDB", color: "#4DB33D" },
+      { name: "PostgreSQL", color: "#336791" },
+      { name: "SQLite", color: "#54C5F8" },
+      { name: "Firebase", color: "#FFCA28" },
+      { name: "Redis", color: "#DC382D" },
+      { name: "InfluxDB", color: "#22ADF6" },
+    ],
+  },
+  {
+    group: "Tools & Platforms",
+    items: [
+      { name: "Git", color: "#F05032" },
+      { name: "Docker", color: "#2496ED" },
+      { name: "Linux", color: "#FCC624" },
+      { name: "Vercel", color: "#ffffff" },
+      { name: "AWS S3", color: "#FF9900" },
+      { name: "Firebase Hosting", color: "#FFCA28" },
+      { name: "Electron.js", color: "#9FEAF9" },
+      { name: "Socket.io", color: "#aaaaaa" },
+      { name: "REST APIs", color: "#89AACC" },
+      { name: "GraphQL", color: "#E10098" },
+      { name: "WebRTC", color: "#4ade80" },
+      { name: "MQTT", color: "#660066" },
+    ],
+  },
+  {
+    group: "Design & AI",
+    items: [
+      { name: "Figma", color: "#F24E1E" },
+      { name: "Adobe XD", color: "#FF61F6" },
+      { name: "Photoshop", color: "#31A8FF" },
+      { name: "Illustrator", color: "#FF9A00" },
+      { name: "OpenAI API", color: "#74aa9c" },
+      { name: "Stable Diffusion", color: "#a78bfa" },
+      { name: "Prompt Engineering", color: "#89AACC" },
+    ],
+  },
+];
 
 function AnimatedBar({ percent, color }: { percent: number; color: string }) {
   const [width, setWidth] = useState(0);
@@ -138,6 +227,59 @@ export default function SkillsPage() {
         </div>
       </section>
 
+      {/* All Languages & Tools — grouped */}
+      <section className="py-16 px-6" style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(2px)" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-px" style={{ background: "#333" }} />
+            <span className="text-xs uppercase tracking-[0.3em] font-bold" style={{ color: "#aaaaaa" }}>Full Stack</span>
+          </div>
+          <h2 className="text-xl font-bold mb-10" style={{ color: "#ffffff" }}>
+            All Languages &amp;{" "}
+            <em className="font-display italic font-normal" style={{ fontFamily: "'Instrument Serif', serif" }}>
+              Technologies
+            </em>
+          </h2>
+          <div className="space-y-10">
+            {ALL_LANGUAGES.map((group) => (
+              <div key={group.group}>
+                <p className="text-[11px] uppercase tracking-[0.25em] font-bold mb-4" style={{ color: "#666666" }}>
+                  {group.group}
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                  {group.items.map((item) => (
+                    <div
+                      key={item.name}
+                      className="flex items-center gap-2 rounded-full px-3 py-1.5 border transition-all duration-200 hover:-translate-y-0.5 cursor-default"
+                      style={{
+                        background: "#141414",
+                        borderColor: `${item.color}30`,
+                        boxShadow: `0 0 0 0 ${item.color}`,
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLDivElement).style.borderColor = item.color;
+                        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 10px ${item.color}33`;
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLDivElement).style.borderColor = `${item.color}30`;
+                        (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                      }}
+                    >
+                      <span
+                        className="w-2 h-2 rounded-full flex-shrink-0"
+                        style={{ background: item.color }}
+                      />
+                      <span className="text-xs font-semibold" style={{ color: "#dddddd" }}>
+                        {item.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* Skill Categories */}
       <section className="py-16 px-6">
         <div className="max-w-5xl mx-auto">
