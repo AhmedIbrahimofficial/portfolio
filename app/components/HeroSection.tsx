@@ -88,7 +88,8 @@ export default function HeroSection() {
           alt="Procurement partnership handshake"
           fill
           priority
-          className="object-cover object-right"
+          className="object-cover"
+          style={{ objectPosition: "center 20%" }}
           sizes="100vw"
         />
         {/* Left-side gradient — keeps text readable, fades cleanly into image */}
