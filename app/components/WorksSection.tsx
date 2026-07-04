@@ -1,60 +1,37 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, type Variants, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PROJECTS } from "../lib/projects";
 
-const SPANS: Record<number, string> = { 1: "md:col-span-7", 2: "md:col-span-5", 3: "md:col-span-5", 4: "md:col-span-7" };
+// Show only first 8 featured projects on homepage
+const FEATURED = PROJECTS.slice(0, 8);
+
+const CATEGORIES = ["All", ...Array.from(new Set(FEATURED.map((p) => p.tag)))];
 
 const inView: Variants = {
-  hidden:  { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: "easeOut" } },
 };
 
-interface RepoMeta { stars: number; updatedAt: string }
-
-function useRepoMeta(repos: (string | undefined)[]) {
-  const [meta, setMeta] = useState<Record<string, RepoMeta>>({});
-
-  useEffect(() => {
-    const validRepos = repos.filter(Boolean) as string[];
-    if (!validRepos.length) return;
-
-    const fetchAll = async () => {
-      const results = await Promise.allSettled(
-        validRepos.map((r) =>
-          fetch(`/api/github`).then((res) => res.json()).then((data) => {
-            // Find matching repo from topRepos
-            const found = data.topRepos?.find(
-              (tr: { fullName: string; stars: number; updatedAt: string }) =>
-                tr.fullName.toLowerCase() === r.toLowerCase()
-            );
-            return { repo: r, stars: found?.stars ?? 0, updatedAt: found?.updatedAt ?? "" };
-          })
-        )
-      );
-      const map: Record<string, RepoMeta> = {};
-      for (const r of results) {
-        if (r.status === "fulfilled") {
-          map[r.value.repo] = { stars: r.value.stars, updatedAt: r.value.updatedAt };
-        }
-      }
-      setMeta(map);
-    };
-
-    fetchAll();
-    const id = setInterval(fetchAll, 300_000);
-    return () => clearInterval(id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return meta;
-}
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 24, scale: 0.97 },
+  visible: (i: number) => ({
+    opacity: 1, y: 0, scale: 1,
+    transition: { duration: 0.55, ease: "easeOut", delay: i * 0.07 },
+  }),
+  exit: { opacity: 0, y: -16, scale: 0.97, transition: { duration: 0.3 } },
+};
 
 export default function WorksSection() {
-  const repoMeta = useRepoMeta(PROJECTS.map((p) => p.githubRepo));
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filtered = activeCategory === "All"
+    ? FEATURED
+    : FEATURED.filter((p) => p.tag === activeCategory);
+
   return (
     <section id="work" className="py-12 md:py-20" style={{ background: "#0a0a0a" }}>
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
@@ -62,7 +39,7 @@ export default function WorksSection() {
         {/* Header */}
         <motion.div variants={inView} initial="hidden" whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="flex items-end justify-between mb-10 md:mb-14">
+          className="flex items-end justify-between mb-8 md:mb-10">
           <div>
             <div className="flex items-center gap-3 mb-3">
               <div className="w-8 h-px" style={{ background: "#333" }} />
@@ -93,78 +70,118 @@ export default function WorksSection() {
           </Link>
         </motion.div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6">
-          {PROJECTS.map((project, i) => (
-            <motion.div key={project.id} className={`${SPANS[project.id]} aspect-[4/3]`}
-              variants={inView} initial="hidden" whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }} transition={{ delay: i * 0.1 }}>
-              <Link href={`/projects/${project.slug}`}
-                className="group relative block w-full h-full rounded-3xl overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-1"
-                style={{ border: "1px solid #2a2a2a" }}>
-                <Image src={project.imageUrl} alt={project.imageAlt} fill
-                  sizes="(max-width: 768px) 100vw, 60vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  priority={i < 2} />
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.bg} opacity-50 group-hover:opacity-30 transition-opacity duration-300`} />
-                <div className="absolute inset-0 opacity-10 mix-blend-multiply pointer-events-none"
-                  style={{ backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)", backgroundSize: "4px 4px" }} />
+        {/* Category filter pills */}
+        <motion.div variants={inView} initial="hidden" whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="flex flex-wrap gap-2 mb-8 md:mb-10">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className="text-xs rounded-full px-4 py-2 font-bold border transition-all duration-200"
+              style={{
+                background: activeCategory === cat
+                  ? "linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)"
+                  : "#141414",
+                borderColor: activeCategory === cat ? "transparent" : "#2a2a2a",
+                color: activeCategory === cat ? "#ffffff" : "#aaaaaa",
+                transform: activeCategory === cat ? "scale(1.04)" : "scale(1)",
+              }}
+            >
+              {cat}
+            </button>
+          ))}
+        </motion.div>
 
-                {/* Hover overlay */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm flex items-center justify-center"
-                  style={{ background: "rgba(0,0,0,0.65)" }}>
-                  <div className="relative">
-                    <span className="absolute inset-[-2px] rounded-full gradient-border-animated" />
-                    <span className="relative z-10 flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold"
-                      style={{ background: "#ffffff", color: "#0a0a0a" }}>
-                      View —{" "}
-                      <em className="font-display italic" style={{ fontFamily: "'Instrument Serif', serif" }}>
-                        {project.title}
-                      </em>
+        {/* Equal-size grid with AnimatePresence transitions */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((project, i) => (
+              <motion.div
+                key={project.id}
+                custom={i}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                layout
+              >
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer"
+                  style={{ border: "1px solid #2a2a2a", background: "#111111" }}
+                >
+                  {/* Image — fixed aspect ratio so all cards are same size */}
+                  <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                    <Image
+                      src={project.imageUrl}
+                      alt={project.imageAlt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${project.bg} opacity-50 group-hover:opacity-30 transition-opacity duration-300`} />
+
+                    {/* Year badge */}
+                    <span className="absolute top-3 right-3 text-[10px] rounded-full px-2.5 py-1 font-bold border"
+                      style={{ background: "rgba(0,0,0,0.75)", borderColor: "rgba(255,255,255,0.12)", color: "#aaaaaa", backdropFilter: "blur(8px)" }}>
+                      {project.year}
                     </span>
-                  </div>
-                </div>
 
-                {/* Bottom tag */}
-                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                  <div>
-                    <p className="text-xs mb-1 font-bold" style={{ color: "#dddddd" }}>{project.tag}</p>
-                    <p className="text-sm font-bold mb-2" style={{ color: "#ffffff" }}>{project.title}</p>
-                    {/* Tech stack tags */}
-                    <div className="flex flex-wrap gap-1.5">
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm flex items-center justify-center"
+                      style={{ background: "rgba(0,0,0,0.65)" }}>
+                      <span className="flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold"
+                        style={{ background: "#ffffff", color: "#0a0a0a" }}>
+                        View project →
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Info — fixed height so all cards are uniform */}
+                  <div className="p-4 flex flex-col gap-2" style={{ minHeight: "110px" }}>
+                    {/* Tag */}
+                    <span className="text-[10px] font-bold rounded-full px-2.5 py-0.5 self-start"
+                      style={{ background: `${project.accentColor}18`, color: project.accentColor, border: `1px solid ${project.accentColor}30` }}>
+                      {project.tag}
+                    </span>
+
+                    {/* Title */}
+                    <p className="text-sm font-bold leading-snug" style={{ color: "#ffffff" }}>
+                      {project.title}
+                    </p>
+
+                    {/* Stack pills */}
+                    <div className="flex flex-wrap gap-1 mt-auto">
                       {project.stack.slice(0, 3).map((tech) => (
-                        <span key={tech}
-                          className="text-[10px] rounded-full px-2 py-0.5 font-semibold"
-                          style={{ background: "rgba(137,170,204,0.18)", color: "#89AACC", border: "1px solid rgba(137,170,204,0.25)" }}>
+                        <span key={tech} className="text-[9px] rounded-full px-2 py-0.5 font-semibold"
+                          style={{ background: "rgba(137,170,204,0.12)", color: "#89AACC", border: "1px solid rgba(137,170,204,0.2)" }}>
                           {tech}
                         </span>
                       ))}
                       {project.stack.length > 3 && (
-                        <span className="text-[10px] rounded-full px-2 py-0.5 font-semibold"
-                          style={{ background: "rgba(255,255,255,0.08)", color: "#aaaaaa", border: "1px solid rgba(255,255,255,0.12)" }}>
+                        <span className="text-[9px] rounded-full px-2 py-0.5 font-semibold"
+                          style={{ background: "rgba(255,255,255,0.06)", color: "#666", border: "1px solid rgba(255,255,255,0.1)" }}>
                           +{project.stack.length - 3}
                         </span>
                       )}
                     </div>
                   </div>
-                  <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                    {/* GitHub stars if available */}
-                    {project.githubRepo && repoMeta[project.githubRepo] !== undefined && (
-                      <span className="flex items-center gap-1 text-[10px] font-bold rounded-full px-2 py-0.5"
-                        style={{ background: "rgba(0,0,0,0.7)", color: "#fbbf24", border: "1px solid rgba(251,191,36,0.3)" }}>
-                        ★ {repoMeta[project.githubRepo]?.stars ?? 0}
-                      </span>
-                    )}
-                    <span className="text-xs rounded-full px-3 py-1 border opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold"
-                      style={{ background: "rgba(0,0,0,0.8)", borderColor: "#444", color: "#ffffff" }}>
-                      {project.year}
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
+
+        {/* Mobile — view all link */}
+        <div className="mt-8 text-center md:hidden">
+          <Link href="/projects"
+            className="inline-flex items-center gap-2 rounded-full text-sm px-6 py-3 border font-bold"
+            style={{ borderColor: "#333", color: "#aaaaaa" }}>
+            View all work →
+          </Link>
+        </div>
+
       </div>
     </section>
   );
