@@ -33,8 +33,19 @@ export default function WorksSection() {
     : FEATURED.filter((p) => p.tag === activeCategory);
 
   return (
-    <section id="work" className="py-12 md:py-20" style={{ background: "#0a0a0a" }}>
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
+    <section id="work" className="py-12 md:py-20 relative overflow-hidden" style={{ background: "#0a0a0a" }}>
+      {/* Section background image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/hero-bg-bottom.png"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(10,10,10,0.83)" }} />
+      </div>
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
 
         {/* Header */}
         <motion.div variants={inView} initial="hidden" whileInView="visible"
