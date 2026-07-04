@@ -88,13 +88,13 @@ export default function HeroSection() {
           alt="Procurement partnership handshake"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-right"
           sizes="100vw"
         />
         {/* Left-side gradient — keeps text readable, fades cleanly into image */}
         <div className="absolute inset-0"
           style={{
-            background: "linear-gradient(to right, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.75) 40%, rgba(10,10,10,0.2) 65%, rgba(10,10,10,0.0) 100%)",
+            background: "linear-gradient(to right, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.70) 30%, rgba(10,10,10,0.15) 52%, rgba(10,10,10,0.0) 62%)",
           }}
         />
         {/* Subtle top/bottom fades */}
