@@ -81,51 +81,28 @@ export default function HeroSection() {
       ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* ── Hero background — two images stacked: top = procurement, bottom = extension ── */}
-      <div className="absolute inset-0 flex flex-col">
-        {/* Top image — main hero with faces */}
-        <div className="relative w-full" style={{ flex: "0 0 55%" }}>
-          <Image
-            src="/hero-procurement.png"
-            alt="Procurement partnership handshake"
-            fill
-            priority
-            className="object-cover"
-            style={{ objectPosition: "center 20%" }}
-            sizes="100vw"
-          />
-        </div>
-        {/* Bottom image — fills the black area below */}
-        <div className="relative w-full" style={{ flex: "1 1 auto" }}>
-          <Image
-            src="/hero-bg-bottom.png"
-            alt="Background extension"
-            fill
-            priority
-            className="object-cover object-top"
-            sizes="100vw"
-          />
-        </div>
-        {/* Left gradient overlay for text readability */}
+      {/* ── Hero background image ── */}
+      <div className="absolute inset-0">
+        <Image
+          src="/hero-procurement.png"
+          alt="Procurement partnership handshake"
+          fill
+          priority
+          className="object-cover"
+          style={{ objectPosition: "center 20%" }}
+          sizes="100vw"
+        />
+        {/* Left-side gradient — keeps text readable, fades cleanly into image */}
         <div className="absolute inset-0"
           style={{
             background: "linear-gradient(to right, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.70) 30%, rgba(10,10,10,0.15) 52%, rgba(10,10,10,0.0) 62%)",
           }}
         />
-        {/* Top fade */}
+        {/* Subtle top/bottom fades */}
         <div className="absolute top-0 left-0 right-0 h-32 pointer-events-none"
           style={{ background: "linear-gradient(to bottom, rgba(10,10,10,0.6), transparent)" }} />
-        {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
           style={{ background: "linear-gradient(to top, #0a0a0a, transparent)" }} />
-        {/* Seam blender between top and bottom image */}
-        <div className="absolute left-0 right-0 pointer-events-none"
-          style={{
-            top: "calc(55% - 60px)",
-            height: "120px",
-            background: "linear-gradient(to bottom, transparent, rgba(10,10,10,0.0), transparent)",
-          }}
-        />
       </div>
 
       {/* ── Top badges — left aligned on desktop ── */}
